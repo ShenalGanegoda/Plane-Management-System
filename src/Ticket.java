@@ -7,6 +7,7 @@ public class Ticket {
     Person person;
     String status;
 
+
     public Ticket(int row, int seat, boolean price, Person person ,String status) {
         this.row = row;
         this.seat = seat;

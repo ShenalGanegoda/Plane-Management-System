@@ -3,6 +3,12 @@ import java.util.Scanner;
 public class Main {
     public static Scanner scn = new Scanner(System.in); // Scanner object to get inputs from the user.
 
+    // Integer arrays that holds the seat status, Available - "0" | Sold - "1"
+    public int[] seatingA = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 };
+    public int[] seatingB = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0};
+    public int[] seatingC = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0};
+    public int[] seatingD = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 };
+
     public static void main(String[] args) {
         System.out.println();
         System.out.println("Hello,\nWelcome to the Plane management application");
@@ -58,7 +64,59 @@ public class Main {
                 System.out.println("Invalid Input\nTry again..");
         }
     }
-    public static void buyASeat(){}
+    public static void buyASeat(){
+        boolean controlRowWhile = true; //Boolean value to control the while loop.
+        while (controlRowWhile){ // While loop to loop till the user enters valid input.
+
+            // Receiving row number from the user.
+            System.out.print("Enter Row number: ");
+            int selectedRowNumber = scn.nextInt();
+
+            if (validRowNumber(selectedRowNumber)){
+                controlRowWhile = false;
+                System.out.println("Input recorded");
+                System.out.println();
+            } else {
+                System.out.println("Invalid input. Enter again");
+                System.out.println();
+            }
+        }
+
+
+        boolean controlRSeatWhile = true; //Boolean value to control the while loop.
+        while (controlRSeatWhile){ // While loop to loop till the user enters valid input.
+
+            // Receiving seat from the user.
+            System.out.print("Enter seat: ");
+            String selectedSeat = scn.next();
+
+            if (validSeat(selectedSeat)){
+                controlRSeatWhile = false;
+                System.out.println("Input recorded");
+                System.out.println();
+            } else {
+                System.out.println("Invalid input. Enter again");
+                System.out.println();
+            }
+        }
+    }
+
+    public static boolean validRowNumber(int rowNumber){
+        boolean flag = true; // Boolean value to check and store validation for return.
+        if ((rowNumber <= 0) || (rowNumber > 14)) flag = false;
+        // Condition to check if Row number is within the valid range.
+
+        return flag;
+    }
+
+    public static boolean validSeat(String seat){
+        seat.toUpperCase(); // Converting value to uppercase.
+        boolean flag = true; // Boolean value to check and store validation for return.
+        if (!seat.equals("A") || !seat.equals("B") || !seat.equals("C") || !seat.equals("D")) flag = false;
+        // Condition to check if Row number is within the valid range.
+
+        return flag;
+    }
     public static void cancelASeat(){}
     public static void findFirstAvailableSeat(){}
     public static void showSeatingPlan(){}
