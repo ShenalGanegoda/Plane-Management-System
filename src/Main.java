@@ -4,19 +4,24 @@ public class Main {
     public static Scanner scn = new Scanner(System.in); // Scanner object to get inputs from the user.
 
     // Integer arrays that holds the seat status, Available - "0" | Sold - "1"
-    public int[] seatingA = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 };
-    public int[] seatingB = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0};
-    public int[] seatingC = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0};
-    public int[] seatingD = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 };
+    public static int[] seatingA = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 };
+    public static int[] seatingB = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0};
+    public static int[] seatingC = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0};
+    public static int[] seatingD = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 };
 
     public static void main(String[] args) {
         System.out.println();
         System.out.println("Hello,\nWelcome to the Plane management application");
-        menuOptionPrint();
+
+        while (true){ // Loop to recursively print out the menu option.
+            menuOptionPrint();
+        }
+
     }
 
     public static void menuOptionPrint(){
         // Separate method for printing out the Menu options
+        System.out.println();
         System.out.println("********************************");
         System.out.println("         Menu Options:");
         System.out.println("********************************");
@@ -38,70 +43,122 @@ public class Main {
 
     public static void chooseMethod(int choice){
         // Separate method to choose the option for the user
-        switch (choice){ // Switch case to choose the method.
-            case 1: buyASeat();
+        switch (choice) { // Switch case to choose the method.
+            case 1 -> {
                 System.out.println("Buy a seat option chosen!");
-                break;
-            case 2: cancelASeat();
+                buyASeat();
+            }
+            case 2 -> {
                 System.out.println("Cancel a seat option chosen!");
-                break;
-            case 3: findFirstAvailableSeat();
+                cancelASeat();
+            }
+            case 3 -> {
                 System.out.println("Find first available seat option chosen!");
-                break;
-            case 4: showSeatingPlan();
+                findFirstAvailableSeat();
+            }
+            case 4 -> {
                 System.out.println("Show seating plan option chosen!");
-                break;
-            case 5: printTicketInformation();
+                showSeatingPlan();
+            }
+            case 5 -> {
                 System.out.println("Print ticket information option chosen!");
-                break;
-            case 6: searchTickets();
+                printTicketInformation();
+            }
+            case 6 -> {
                 System.out.println("Search tickets option chosen!");
-                break;
-            case 0: quit();
-                System.out.println("Quit option chosen!");
-                break;
-            default:
-                System.out.println("Invalid Input\nTry again..");
+                searchTickets();
+            }
+            case 0 -> quit();
+            default -> System.out.println("Invalid Input\nTry again..");
         }
     }
     public static void buyASeat(){
+        int seatNumberChosen = 0;
+        String rowChosen = "";
+        boolean controlSeatWhile = true; //Boolean value to control the while loop.
+        while (controlSeatWhile){ // While loop to loop till the user enters valid input.
+
+            // Receiving row number from the user.
+            System.out.print("Enter seat number: ");
+            int selectedSeatNumber = scn.nextInt();
+
+            if (validSeatNumber(selectedSeatNumber)){
+                controlSeatWhile = false;
+                seatNumberChosen = selectedSeatNumber;
+            } else {
+                System.out.println("Invalid input. Enter again");
+                System.out.println();
+            }
+        }
+
+
         boolean controlRowWhile = true; //Boolean value to control the while loop.
         while (controlRowWhile){ // While loop to loop till the user enters valid input.
 
-            // Receiving row number from the user.
-            System.out.print("Enter Row number: ");
-            int selectedRowNumber = scn.nextInt();
+            // Receiving seat from the user.
+            System.out.print("Enter row(A , B , C , D): ");
+            String selectedRow = scn.next().toUpperCase();
 
-            if (validRowNumber(selectedRowNumber)){
+            if (validRow(selectedRow)){
                 controlRowWhile = false;
-                System.out.println("Input recorded");
-                System.out.println();
+                rowChosen = selectedRow;
             } else {
                 System.out.println("Invalid input. Enter again");
                 System.out.println();
             }
         }
 
-
-        boolean controlRSeatWhile = true; //Boolean value to control the while loop.
-        while (controlRSeatWhile){ // While loop to loop till the user enters valid input.
-
-            // Receiving seat from the user.
-            System.out.print("Enter seat: ");
-            String selectedSeat = scn.next();
-
-            if (validSeat(selectedSeat)){
-                controlRSeatWhile = false;
-                System.out.println("Input recorded");
-                System.out.println();
-            } else {
-                System.out.println("Invalid input. Enter again");
-                System.out.println();
-            }
+        switch (rowChosen){
+            // Switch case to book using separate methods.
+            case "A" -> bookRowA(seatNumberChosen);
+            case "B" -> bookRowB(seatNumberChosen);
+            case "C" -> bookRowC(seatNumberChosen);
+            case "D" -> bookRowD(seatNumberChosen);
         }
     }
 
-    public static boolean validRowNumber(int rowNumber){
+    public static void bookRowA(int seatNumber){
+        // Separate method to traverse through specific row for booking.
+        if (seatingA[seatNumber - 1] == 1){
+            System.out.println("Seat not available");
+        } else {
+            seatingA[seatNumber - 1] = 1;
+            System.out.println("Seat booked!");
+        }
+    }
+
+    public static void bookRowB(int seatNumber){
+        // Separate method to traverse through specific row for booking.
+        if (seatingB[seatNumber - 1] == 1){
+            System.out.println("Seat not available");
+        } else {
+            seatingB[seatNumber - 1] = 1;
+            System.out.println("Seat booked!");
+        }
+    }
+
+    public static void bookRowC(int seatNumber){
+        // Separate method to traverse through specific row for booking.
+        if (seatingC[seatNumber - 1] == 1){
+            System.out.println("Seat not available");
+        } else {
+            seatingC[seatNumber - 1] = 1;
+            System.out.println("Seat booked!");
+        }
+    }
+
+    public static void bookRowD(int seatNumber){
+        // Separate method to traverse through specific row for booking.
+        if (seatingD[seatNumber - 1] == 1){
+            System.out.println("Seat not available");
+        } else {
+            seatingD[seatNumber - 1] = 1;
+            System.out.println("Seat booked!");
+        }
+    }
+
+    public static boolean validSeatNumber(int rowNumber){
+        // Method for seat number input validation.
         boolean flag = true; // Boolean value to check and store validation for return.
         if ((rowNumber <= 0) || (rowNumber > 14)) flag = false;
         // Condition to check if Row number is within the valid range.
@@ -109,15 +166,17 @@ public class Main {
         return flag;
     }
 
-    public static boolean validSeat(String seat){
-        seat.toUpperCase(); // Converting value to uppercase.
-        boolean flag = true; // Boolean value to check and store validation for return.
-        if (!seat.equals("A") || !seat.equals("B") || !seat.equals("C") || !seat.equals("D")) flag = false;
+    public static boolean validRow(String seat){
+        // Method for row input validation.
+        boolean flag = false; // Boolean value to check and store validation for return.
+        if (seat.equals("A") || seat.equals("B") || seat.equals("C") || seat.equals("D")) flag = true;
         // Condition to check if Row number is within the valid range.
 
         return flag;
     }
-    public static void cancelASeat(){}
+    public static void cancelASeat(){
+
+    }
     public static void findFirstAvailableSeat(){}
     public static void showSeatingPlan(){}
     public static void printTicketInformation(){}
