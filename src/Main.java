@@ -22,7 +22,7 @@ public class Main {
     public static void menuOptionPrint(){
         // Separate method for printing out the Menu options
         System.out.println();
-        System.out.println("********************************");
+        System.out.println("\n********************************");
         System.out.println("         Menu Options:");
         System.out.println("********************************");
         System.out.println();
@@ -260,7 +260,22 @@ public class Main {
         }
     }
     public static void findFirstAvailableSeat(){}
-    public static void showSeatingPlan(){}
+    public static void showSeatingPlan(){
+        int[] arrayForLineBreak = {13 , 11 , 11 , 13};
+        // Array storing the lengths of the seating plans for line break when traversing.
+        int[][] allSeats = {seatingA , seatingB , seatingC , seatingD};
+        // Multidimensional Array for storing all arrays for traversing.
+
+        for(int[] individualArrays : allSeats){
+            System.out.println();
+            for (int i = 0; i < individualArrays.length; i++) { // Iterating through each individual Array.
+                if (individualArrays[i] == 1){
+                    System.out.print("X" + " ");
+                } else System.out.print(individualArrays[i] + " ");
+
+            }
+        }
+    }
     public static void printTicketInformation(){}
     public static void searchTickets(){}
     public static void quit(){

@@ -1,0 +1,92 @@
+
+e
+java:S1104"OMake scn a static final constant or non-public and provide accessors if needed.(—»‹²
+j
+java:S1104"TMake seatingA a static final constant or non-public and provide accessors if needed.(Ÿõêµ
+j
+java:S1104"TMake seatingB a static final constant or non-public and provide accessors if needed.(õ¸™È
+o
+java:S1104	"TMake seatingC a static final constant or non-public and provide accessors if needed.(õ¬‚Óúÿÿÿÿ
+j
+java:S1104
+"TMake seatingD a static final constant or non-public and provide accessors if needed.(İ¸ªÎ
+?
+java:S1444")Make this "public static scn" field final(—»‹²
+D
+java:S1444".Make this "public static seatingA" field final(Ÿõêµ
+D
+java:S1444".Make this "public static seatingB" field final(õ¸™È
+I
+java:S1444	".Make this "public static seatingC" field final(õ¬‚Óúÿÿÿÿ
+D
+java:S1444
+".Make this "public static seatingD" field final(İ¸ªÎ
+0
+java:S1220""Move this file to a named package.
+
+java:S1186†"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(£Î¸ùÿÿÿÿ
+˜
+java:S1186‡"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Á®Ô‹
+˜
+java:S1186˜"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÓÉ›è
+˜
+java:S1186™"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ç®¸
+3
+java:S2386"Make this member "protected".(Ÿõêµ
+3
+java:S2386"Make this member "protected".(õ¸™È
+8
+java:S2386	"Make this member "protected".(õ¬‚Óúÿÿÿÿ
+3
+java:S2386
+"Make this member "protected".(İ¸ªÎ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(…®Éí
+S	java:S106"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(™¼åÃüÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(Ï‰»øÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(™¼åÃüÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(ú„²õ
+M	java:S106"9Replace this use of System.out or System.err by a logger.(®êÜ[
+N	java:S106"9Replace this use of System.out or System.err by a logger.(ú›ì–
+M	java:S106 "9Replace this use of System.out or System.err by a logger.(Ù©Î
+S	java:S106!"9Replace this use of System.out or System.err by a logger.(„»¸şşÿÿÿÿ
+S	java:S106""9Replace this use of System.out or System.err by a logger.(œèëäşÿÿÿÿ
+N	java:S106#"9Replace this use of System.out or System.err by a logger.(úå­º
+S	java:S106$"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+N	java:S106&"9Replace this use of System.out or System.err by a logger.(Ú„æ›
+S	java:S106("9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+N	java:S1060"9Replace this use of System.out or System.err by a logger.(ñıÛ
+N	java:S1064"9Replace this use of System.out or System.err by a logger.(‘Òª–
+N	java:S1068"9Replace this use of System.out or System.err by a logger.(ı•£ò
+S	java:S106<"9Replace this use of System.out or System.err by a logger.(õğò‚ûÿÿÿÿ
+S	java:S106@"9Replace this use of System.out or System.err by a logger.(çâ˜ïüÿÿÿÿ
+N	java:S106D"9Replace this use of System.out or System.err by a logger.(¹ïòÑ
+S	java:S106H"9Replace this use of System.out or System.err by a logger.(õ¯Ó•ùÿÿÿÿ
+S	java:S106P"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+7	java:S131Q""Add a default case to this switch.(ô¿Ÿ¿
+S	java:S106b"9Replace this use of System.out or System.err by a logger.(™”Ÿˆúÿÿÿÿ
+M	java:S106i"9Replace this use of System.out or System.err by a logger.(´ÙÙw
+S	java:S106j"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+N	java:S106y"9Replace this use of System.out or System.err by a logger.(®¬óœ
+N	java:S106€"9Replace this use of System.out or System.err by a logger.(´ÙÙw
+T	java:S106"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+O	java:S106‘"9Replace this use of System.out or System.err by a logger.(ÒŸ…™
+T	java:S106”"9Replace this use of System.out or System.err by a logger.(²‘ğøÿÿÿÿ
+N	java:S106˜"9Replace this use of System.out or System.err by a logger.(õø$
+T	java:S106›"9Replace this use of System.out or System.err by a logger.(¾¤õ¢ùÿÿÿÿ
+O	java:S106©"9Replace this use of System.out or System.err by a logger.(ÒŸ…™
+T	java:S106¬"9Replace this use of System.out or System.err by a logger.(²‘ğøÿÿÿÿ
+N	java:S106°"9Replace this use of System.out or System.err by a logger.(õø$
+T	java:S106³"9Replace this use of System.out or System.err by a logger.(¾¤õ¢ùÿÿÿÿ
+O	java:S106À"9Replace this use of System.out or System.err by a logger.(ÒŸ…™
+T	java:S106Ã"9Replace this use of System.out or System.err by a logger.(²‘ğøÿÿÿÿ
+N	java:S106Ç"9Replace this use of System.out or System.err by a logger.(õø$
+T	java:S106Ê"9Replace this use of System.out or System.err by a logger.(¾¤õ¢ùÿÿÿÿ
+O	java:S106×"9Replace this use of System.out or System.err by a logger.(ÒŸ…™
+T	java:S106Ú"9Replace this use of System.out or System.err by a logger.(²‘ğøÿÿÿÿ
+N	java:S106Ş"9Replace this use of System.out or System.err by a logger.(õø$
+T	java:S106á"9Replace this use of System.out or System.err by a logger.(¾¤õ¢ùÿÿÿÿ
+8	java:S131ş""Add a default case to this switch.(ô¿Ÿ¿
+N	java:S106œ"9Replace this use of System.out or System.err by a logger.(…“¦
