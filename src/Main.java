@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Main {
     public static Scanner scn = new Scanner(System.in); // Scanner object to get inputs from the user.
-
     // Integer arrays that holds the seat status, Available - "0" | Sold - "1"
     public static int[] seatingA = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 };
     public static int[] seatingB = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0};
@@ -10,6 +9,8 @@ public class Main {
     public static int[] seatingD = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 };
     public static int[][] allSeats = {seatingA , seatingB , seatingC , seatingD};
     // Multidimensional Array for storing all arrays for traversing.
+    public static Ticket[] ticketsArray = {}; // Array to hold Ticket objects.
+    public static int buyCount = -1; // Integer variable to hold ticket count.
 
 
     public static void main(String[] args) {
@@ -78,6 +79,10 @@ public class Main {
     public static void buyASeat(){
         int seatNumberChosen = getSeatNumberFromUser();
         String rowChosen = getRowNumberFromUser();
+        int ticketPrice = calculateTicketPrice(seatNumberChosen);
+
+        collectPersonInformation(rowChosen , seatNumberChosen , ticketPrice);
+        // Collecting person information and creating Person + Ticket objects.
 
         int indicateBooking = 0; // Variable to pass to the method to indicate it's a Booking.
         System.out.println();
@@ -88,6 +93,50 @@ public class Main {
             case "C" -> bookOrCancelRowC(seatNumberChosen , indicateBooking);
             case "D" -> bookOrCancelRowD(seatNumberChosen , indicateBooking);
         }
+    }
+
+    private static int calculateTicketPrice(int seatNumber) {
+        int calculatedPrice = 0;
+
+        if ((seatNumber >= 1) || (seatNumber <= 5)){
+            // Checks for the seats in between seat number 1 - 5.
+            calculatedPrice = 200;
+        } else if (seatNumber >= 6 || seatNumber <= 9 ) {
+            // Checks for the seats in between seat number 6 - 9.
+            calculatedPrice = 150;
+        } else calculatedPrice = 180; // Seats in between seat number 10 - 14.
+
+        return calculatedPrice;
+    }
+
+    public static void collectPersonInformation(String row , int seat , int ticketPrice) {
+        //  Separate method to get information of the person.
+        System.out.print("Enter name: ");
+        String name = scn.next();
+        System.out.print("Enter surname: ");
+        String surname = scn.next();
+        System.out.print("Enter Email: ");
+        String email = scn.next();
+
+        Person person = new Person(name , surname , email);
+        // Creating a Person object with the received inputs.
+
+        Ticket ticket = new Ticket(row , seat , ticketPrice , person);
+        // Creating a Ticket object with the received inputs.
+
+        buyCount++; // Incrementing the buy Count to keep track of sold tickets.
+        addToArray(ticketsArray , buyCount , ticket); // Method to Add new Ticket to an Array.
+    }
+
+    private static Ticket[] addToArray(Ticket[] arrayOfTickets , int elementsOfTheArray , Ticket newValue) {
+        Ticket[] newTicketArray = new Ticket[elementsOfTheArray + 1];
+        // Creating new array with one index added to the original Array for new value addition.
+
+        for (int i = 0; i < elementsOfTheArray; i++) {
+            newTicketArray[i] = arrayOfTickets[i]; // Creating new array with Original array.
+        }
+        newTicketArray[elementsOfTheArray] = newValue; // Adding the new value to the last index.
+        return newTicketArray;
     }
 
     public static int getSeatNumberFromUser(){
@@ -112,6 +161,8 @@ public class Main {
 
         return seatNumberChosen;
     }
+
+
 
     public static String getRowNumberFromUser(){
         // Separate method to get Row from the user.
