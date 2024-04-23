@@ -8,6 +8,9 @@ public class Main {
     public static int[] seatingB = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0};
     public static int[] seatingC = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0};
     public static int[] seatingD = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 };
+    public static int[][] allSeats = {seatingA , seatingB , seatingC , seatingD};
+    // Multidimensional Array for storing all arrays for traversing.
+
 
     public static void main(String[] args) {
         System.out.println();
@@ -45,27 +48,27 @@ public class Main {
         // Separate method to choose the option for the user
         switch (choice) { // Switch case to choose the method.
             case 1 -> {
-                System.out.println("Buy a seat option chosen!");
+                System.out.println("01) Buy a seat option chosen!");
                 buyASeat();
             }
             case 2 -> {
-                System.out.println("Cancel a seat option chosen!");
+                System.out.println("02) Cancel a seat option chosen!");
                 cancelASeat();
             }
             case 3 -> {
-                System.out.println("Find first available seat option chosen!");
+                System.out.println("03) Find first available seat option chosen!");
                 findFirstAvailableSeat();
             }
             case 4 -> {
-                System.out.println("Show seating plan option chosen!");
+                System.out.println("04) Show seating plan option chosen!");
                 showSeatingPlan();
             }
             case 5 -> {
-                System.out.println("Print ticket information option chosen!");
+                System.out.println("05) Print ticket information option chosen!");
                 printTicketInformation();
             }
             case 6 -> {
-                System.out.println("Search tickets option chosen!");
+                System.out.println("06) Search tickets option chosen!");
                 searchTickets();
             }
             case 0 -> quit();
@@ -259,12 +262,35 @@ public class Main {
             case "D" -> bookOrCancelRowD(seatNumberChosen , indicateCancel);
         }
     }
-    public static void findFirstAvailableSeat(){}
+    public static void findFirstAvailableSeat(){
+        int count = 0; // Count variable to track which array inside the for-each loop.
+        for(int[] individualArrays : allSeats){
+            count++; //Increment count on each array.
+            for (int i = 0; i < individualArrays.length; i++) {
+                if (individualArrays[i] == 0){
+                    System.out.println(
+                            "Available row: " + getRowFromNumber(count)
+                                    + " \nAvailable seat number: " + (i + 1));
+                    break;
+                }
+            }
+            break;
+        }
+    }
+
+    public static String getRowFromNumber(int countedNumber){
+        // Separate method to check which Row is according to the number in the findFirstAvailableSeat() loop traversal.
+        String row = "";
+        switch (countedNumber){
+            case 1 -> row = "A";
+            case 2 -> row = "B";
+            case 3 -> row = "C";
+            case 4 -> row = "D";
+        }
+
+        return row;
+    }
     public static void showSeatingPlan(){
-        int[] arrayForLineBreak = {13 , 11 , 11 , 13};
-        // Array storing the lengths of the seating plans for line break when traversing.
-        int[][] allSeats = {seatingA , seatingB , seatingC , seatingD};
-        // Multidimensional Array for storing all arrays for traversing.
 
         for(int[] individualArrays : allSeats){
             System.out.println();
@@ -272,15 +298,15 @@ public class Main {
                 if (individualArrays[i] == 1){
                     System.out.print("X" + " ");
                 } else System.out.print(individualArrays[i] + " ");
-
             }
         }
+
     }
     public static void printTicketInformation(){}
     public static void searchTickets(){}
     public static void quit(){
         // Method to terminate the JVM.
-        System.out.println("Quitting program.. ");
+        System.out.println("06) Quitting program.. ");
         System.exit(0); // System classes exit method used for terminating the JVM.
     }
 
