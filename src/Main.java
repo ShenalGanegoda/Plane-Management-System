@@ -73,8 +73,24 @@ public class Main {
         }
     }
     public static void buyASeat(){
+        int seatNumberChosen = getSeatNumberFromUser();
+        String rowChosen = getRowNumberFromUser();
+
+        int indicateBooking = 0; // Variable to pass to the method to indicate it's a Booking.
+        System.out.println();
+        switch (rowChosen){
+            // Switch case to book using separate methods.
+            case "A" -> bookOrCancelRowA(seatNumberChosen , indicateBooking);
+            case "B" -> bookOrCancelRowB(seatNumberChosen , indicateBooking);
+            case "C" -> bookOrCancelRowC(seatNumberChosen , indicateBooking);
+            case "D" -> bookOrCancelRowD(seatNumberChosen , indicateBooking);
+        }
+    }
+
+    public static int getSeatNumberFromUser(){
+        // Separate method to get seat number from the user.
         int seatNumberChosen = 0;
-        String rowChosen = "";
+
         boolean controlSeatWhile = true; //Boolean value to control the while loop.
         while (controlSeatWhile){ // While loop to loop till the user enters valid input.
 
@@ -91,6 +107,12 @@ public class Main {
             }
         }
 
+        return seatNumberChosen;
+    }
+
+    public static String getRowNumberFromUser(){
+        // Separate method to get Row from the user.
+        String rowChosen = "";
 
         boolean controlRowWhile = true; //Boolean value to control the while loop.
         while (controlRowWhile){ // While loop to loop till the user enters valid input.
@@ -108,52 +130,100 @@ public class Main {
             }
         }
 
-        switch (rowChosen){
-            // Switch case to book using separate methods.
-            case "A" -> bookRowA(seatNumberChosen);
-            case "B" -> bookRowB(seatNumberChosen);
-            case "C" -> bookRowC(seatNumberChosen);
-            case "D" -> bookRowD(seatNumberChosen);
+        return rowChosen;
+    }
+
+    public static void bookOrCancelRowA(int seatNumber , int bookOrCancel){
+        // Separate method to trave
+        // rse through specific row for booking.
+
+        // 0 - Book
+        // 1 - Cancel
+
+        if (bookOrCancel == 0){ // Checks if this method call is for booking or canceling.
+            if (seatingA[seatNumber - 1] == 1){
+                System.out.println("Seat not available");
+            } else {
+                seatingA[seatNumber - 1] = 1;
+                System.out.println("Seat booked!");
+            }
+        } else {
+            if (seatingA[seatNumber - 1] == 1){
+                System.out.println("Booking canceled");
+                seatingA[seatNumber - 1] = 0;
+            } else {
+                System.out.println("Seat is available!\nWrong Input");
+            }
+        }
+
+    }
+
+    public static void bookOrCancelRowB(int seatNumber, int bookOrCancel){
+        // Separate method to traverse through specific row for booking.
+
+        // 0 - Book
+        // 1 - Cancel
+
+        if (bookOrCancel == 0){ // Checks if this method call is for booking or canceling.
+            if (seatingB[seatNumber - 1] == 1){
+                System.out.println("Seat not available");
+            } else {
+                seatingB[seatNumber - 1] = 1;
+                System.out.println("Seat booked!");
+            }
+        } else {
+            if (seatingB[seatNumber - 1] == 1){
+                System.out.println("Booking canceled");
+                seatingB[seatNumber - 1] = 0;
+            } else {
+                System.out.println("Seat is available!\nWrong Input");
+            }
         }
     }
 
-    public static void bookRowA(int seatNumber){
+    public static void bookOrCancelRowC(int seatNumber , int bookOrCancel){
         // Separate method to traverse through specific row for booking.
-        if (seatingA[seatNumber - 1] == 1){
-            System.out.println("Seat not available");
+
+        // 0 - Book
+        // 1 - Cancel
+
+        if (bookOrCancel == 0){ // Checks if this method call is for booking or canceling.
+            if (seatingC[seatNumber - 1] == 1){
+                System.out.println("Seat not available");
+            } else {
+                seatingC[seatNumber - 1] = 1;
+                System.out.println("Seat booked!");
+            }
         } else {
-            seatingA[seatNumber - 1] = 1;
-            System.out.println("Seat booked!");
+            if (seatingC[seatNumber - 1] == 1){
+                System.out.println("Booking canceled");
+                seatingC[seatNumber - 1] = 0;
+            } else {
+                System.out.println("Seat is available!\nWrong Input");
+            }
         }
     }
 
-    public static void bookRowB(int seatNumber){
+    public static void bookOrCancelRowD(int seatNumber , int bookOrCancel){
         // Separate method to traverse through specific row for booking.
-        if (seatingB[seatNumber - 1] == 1){
-            System.out.println("Seat not available");
-        } else {
-            seatingB[seatNumber - 1] = 1;
-            System.out.println("Seat booked!");
-        }
-    }
 
-    public static void bookRowC(int seatNumber){
-        // Separate method to traverse through specific row for booking.
-        if (seatingC[seatNumber - 1] == 1){
-            System.out.println("Seat not available");
-        } else {
-            seatingC[seatNumber - 1] = 1;
-            System.out.println("Seat booked!");
-        }
-    }
+        // 0 - Book
+        // 1 - Cancel
 
-    public static void bookRowD(int seatNumber){
-        // Separate method to traverse through specific row for booking.
-        if (seatingD[seatNumber - 1] == 1){
-            System.out.println("Seat not available");
+        if (bookOrCancel == 0){ // Checks if this method call is for booking or canceling.
+            if (seatingD[seatNumber - 1] == 1){
+                System.out.println("Seat not available");
+            } else {
+                seatingD[seatNumber - 1] = 1;
+                System.out.println("Seat booked!");
+            }
         } else {
-            seatingD[seatNumber - 1] = 1;
-            System.out.println("Seat booked!");
+            if (seatingD[seatNumber - 1] == 1){
+                System.out.println("Booking canceled");
+                seatingD[seatNumber - 1] = 0;
+            } else {
+                System.out.println("Seat is available!\nWrong Input");
+            }
         }
     }
 
@@ -175,7 +245,19 @@ public class Main {
         return flag;
     }
     public static void cancelASeat(){
+        // Separate method to cancel a seat booking.
+        int seatNumberChosen = getSeatNumberFromUser();
+        String rowChosen = getRowNumberFromUser();
 
+
+        int indicateCancel = 1; // Variable to pass to the method to indicate it's a cancelation.
+        switch (rowChosen){
+            // Switch case to book using separate methods.
+            case "A" -> bookOrCancelRowA(seatNumberChosen , indicateCancel);
+            case "B" -> bookOrCancelRowB(seatNumberChosen , indicateCancel);
+            case "C" -> bookOrCancelRowC(seatNumberChosen , indicateCancel);
+            case "D" -> bookOrCancelRowD(seatNumberChosen , indicateCancel);
+        }
     }
     public static void findFirstAvailableSeat(){}
     public static void showSeatingPlan(){}
