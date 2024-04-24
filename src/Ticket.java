@@ -48,11 +48,6 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket {" +
-                "row = '" + row + '\'' +
-                ", seat = " + seat +
-                ", price = " + price +
-                ", person = " + person + '\'' +
-                '}';
+        return "Ticket Information: ," + "Row - " + row + ", Seat - " + seat + ", Price - " + price + " ," + person;
     }
 }

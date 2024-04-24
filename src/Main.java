@@ -125,7 +125,8 @@ public class Main {
         // Creating a Ticket object with the received inputs.
 
         buyCount++; // Incrementing the buy Count to keep track of sold tickets.
-        addToArray(ticketsArray , buyCount , ticket); // Method to Add new Ticket to an Array.
+        ticketsArray = addToArray(ticketsArray , buyCount , ticket);
+        // Method to Add new Ticket to an Array and assigning the new array to the original array.
     }
 
     private static Ticket[] addToArray(Ticket[] arrayOfTickets , int elementsOfTheArray , Ticket newValue) {
@@ -188,7 +189,7 @@ public class Main {
     }
 
     public static void bookOrCancelRowA(int seatNumber , int bookOrCancel){
-        // Separate method to trave
+        // Separate method to traverse
         // rse through specific row for booking.
 
         // 0 - Book
@@ -228,12 +229,18 @@ public class Main {
         } else {
             if (seatingB[seatNumber - 1] == 1){
                 System.out.println("Booking canceled");
+//                removeFromArray();
                 seatingB[seatNumber - 1] = 0;
             } else {
                 System.out.println("Seat is available!\nWrong Input");
             }
         }
     }
+
+//    public static Ticket[] removeFromArray() {
+//        // Separate method to remove ticket from the array.
+//
+//    }
 
     public static void bookOrCancelRowC(int seatNumber , int bookOrCancel){
         // Separate method to traverse through specific row for booking.
@@ -303,7 +310,6 @@ public class Main {
         int seatNumberChosen = getSeatNumberFromUser();
         String rowChosen = getRowNumberFromUser();
 
-
         int indicateCancel = 1; // Variable to pass to the method to indicate it's a cancelation.
         switch (rowChosen){
             // Switch case to book using separate methods.
@@ -353,7 +359,11 @@ public class Main {
         }
 
     }
-    public static void printTicketInformation(){}
+    public static void printTicketInformation(){
+        for (int i = 0; i < ticketsArray.length; i++) { // Traverse through the array of Ticket objects.
+            System.out.println(ticketsArray[i].toString()); // Printing out the information using the toString() method.
+        }
+    }
     public static void searchTickets(){}
     public static void quit(){
         // Method to terminate the JVM.
