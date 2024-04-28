@@ -93,6 +93,7 @@ public class Main {
             case "C" -> bookOrCancelRowC(seatNumberChosen , indicateBooking);
             case "D" -> bookOrCancelRowD(seatNumberChosen , indicateBooking);
         }
+
     }
 
     private static int calculateTicketPrice(int seatNumber) {
@@ -229,7 +230,6 @@ public class Main {
         } else {
             if (seatingB[seatNumber - 1] == 1){
                 System.out.println("Booking canceled");
-//                removeFromArray();
                 seatingB[seatNumber - 1] = 0;
             } else {
                 System.out.println("Seat is available!\nWrong Input");
@@ -237,10 +237,22 @@ public class Main {
         }
     }
 
-//    public static Ticket[] removeFromArray() {
-//        // Separate method to remove ticket from the array.
-//
-//    }
+    public static Ticket[] removeFromArray
+            (Ticket[] arrayOfTickets , int elementsOfTheArray , int seat , String row) {
+        // Separate method to remove elements from an array.
+
+        Ticket[] newArray = new Ticket[arrayOfTickets.length - 1];
+        // Creating a new array to assign elements excluding the remove needed element.
+
+        for (int i = 0; i < arrayOfTickets.length; i++) { // Traversing through the original array.
+            if (arrayOfTickets[i].getSeat() == seat && arrayOfTickets[i].getRow() == row){
+                // If the row and seat numbers are equal skip the iteration.
+                continue;
+            } else newArray[i] = arrayOfTickets[i]; // If not assign the values to the new array created.
+        }
+
+        return newArray;
+    }
 
     public static void bookOrCancelRowC(int seatNumber , int bookOrCancel){
         // Separate method to traverse through specific row for booking.
@@ -310,7 +322,7 @@ public class Main {
         int seatNumberChosen = getSeatNumberFromUser();
         String rowChosen = getRowNumberFromUser();
 
-        int indicateCancel = 1; // Variable to pass to the method to indicate it's a cancelation.
+        int indicateCancel = 1; // Variable to pass to the method to indicate it's a cancellation.
         switch (rowChosen){
             // Switch case to book using separate methods.
             case "A" -> bookOrCancelRowA(seatNumberChosen , indicateCancel);
@@ -318,6 +330,9 @@ public class Main {
             case "C" -> bookOrCancelRowC(seatNumberChosen , indicateCancel);
             case "D" -> bookOrCancelRowD(seatNumberChosen , indicateCancel);
         }
+
+        buyCount--; // Incrementing the value of the buyCount variable.
+        removeFromArray(ticketsArray , buyCount , seatNumberChosen , rowChosen);
     }
     public static void findFirstAvailableSeat(){
         int count = 0; // Count variable to track which array inside the for-each loop.
