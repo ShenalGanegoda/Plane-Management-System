@@ -369,7 +369,6 @@ public class Main {
         return row;
     }
     public static void showSeatingPlan(){
-
         for(int[] individualArrays : allSeats){
             System.out.println();
             for (int i = 0; i < individualArrays.length; i++) { // Iterating through each individual Array.
@@ -385,7 +384,18 @@ public class Main {
             System.out.println(ticketsArray[i].toString()); // Printing out the information using the toString() method.
         }
     }
-    public static void searchTickets(){}
+    public static void searchTickets(){
+        int selectedSeat = getSeatNumberFromUser(); // Receiving the seat number from the user.
+        String selectedRow = getRowNumberFromUser(); // Receiving the row from the user.
+
+        for (int i = 0; i < ticketsArray.length; i++) { // Traversing through the Tickets array for check.
+            if (selectedSeat == ticketsArray[i].getSeat() && selectedRow.equals(ticketsArray[i].getRow())){
+                // Checks if the ticket is already bought.
+                System.out.println("Ticket Information: " + ticketsArray[i].toString());
+                // Printing out the ticket information.
+            } else System.out.println("This seat is available!");
+        }
+    }
     public static void quit(){
         // Method to terminate the JVM.
         System.out.println("06) Quitting program.. ");
