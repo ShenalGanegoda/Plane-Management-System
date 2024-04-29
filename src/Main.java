@@ -238,17 +238,20 @@ public class Main {
     }
 
     public static Ticket[] removeFromArray
-            (Ticket[] arrayOfTickets , int elementsOfTheArray , int seat , String row) {
+            (Ticket[] arrayOfTickets , int seat , String row) {
         // Separate method to remove elements from an array.
 
         Ticket[] newArray = new Ticket[arrayOfTickets.length - 1];
         // Creating a new array to assign elements excluding the remove needed element.
 
+        int j = 0; // Integer variable to hold the index of the new array.
+
         for (int i = 0; i < arrayOfTickets.length; i++) { // Traversing through the original array.
-            if (arrayOfTickets[i].getSeat() == seat && arrayOfTickets[i].getRow() == row){
-                // If the row and seat numbers are equal skip the iteration.
-                continue;
-            } else newArray[i] = arrayOfTickets[i]; // If not assign the values to the new array created.
+            if (arrayOfTickets[i].getSeat() != seat && arrayOfTickets[i].getRow() != row){
+                // If the row and seat numbers are not equal assign the values to the new array.
+                newArray[j] = arrayOfTickets[i]; // If not assign the values to the new array created.
+                j++; // Incrementing the value for the new array index.
+            }
         }
 
         return newArray;
@@ -331,8 +334,11 @@ public class Main {
             case "D" -> bookOrCancelRowD(seatNumberChosen , indicateCancel);
         }
 
+
+        ticketsArray = removeFromArray(ticketsArray , seatNumberChosen , rowChosen);
+        // Removing the element from the array and assigning it to the Original array.
+
         buyCount--; // Incrementing the value of the buyCount variable.
-        removeFromArray(ticketsArray , buyCount , seatNumberChosen , rowChosen);
     }
     public static void findFirstAvailableSeat(){
         int count = 0; // Count variable to track which array inside the for-each loop.
