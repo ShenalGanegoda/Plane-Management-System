@@ -337,7 +337,6 @@ public class Main {
 
         ticketsArray = removeFromArray(ticketsArray , seatNumberChosen , rowChosen);
         // Removing the element from the array and assigning it to the Original array.
-
         buyCount--; // Incrementing the value of the buyCount variable.
     }
     public static void findFirstAvailableSeat(){
@@ -380,10 +379,38 @@ public class Main {
 
     }
     public static void printTicketInformation(){
+        int seatSet200 = 0;
+        int seatSet150 = 0;
+        int seatSet180 = 0;
+
         for (int i = 0; i < ticketsArray.length; i++) { // Traverse through the array of Ticket objects.
+            switch (ticketLocationCheck(ticketsArray[i])){ // Switch case to decide which seat count to increment.
+                case 1 -> seatSet200++;
+                case 2 -> seatSet150++;
+                case 3 -> seatSet180++;
+            }
             System.out.println(ticketsArray[i].toString()); // Printing out the information using the toString() method.
         }
+
+        System.out.println("Total price: " + calculateTotalPrice(seatSet200 ,seatSet150 ,seatSet180));
     }
+
+    public static int calculateTotalPrice(int seatSet200 , int seatSet150 , int seatSet180) {
+        int totalPrice = 0; // Variable to hold the total price.
+        totalPrice = (seatSet200 * 200) + (seatSet150 * 150) + (seatSet180 * 180);
+        return totalPrice;
+    }
+
+    private static int ticketLocationCheck(Ticket ticket) {
+        // Separate method to check the position of the seat
+        if (ticket.getSeat() >= 1 && ticket.getSeat() <= 5){
+            return 1;
+        } else if (ticket.getSeat() >= 6 && ticket.getSeat() <= 9) {
+            return 2;
+        } else return 3;
+    }
+
+
     public static void searchTickets(){
         int selectedSeat = getSeatNumberFromUser(); // Receiving the seat number from the user.
         String selectedRow = getRowNumberFromUser(); // Receiving the row from the user.
@@ -393,7 +420,10 @@ public class Main {
                 // Checks if the ticket is already bought.
                 System.out.println("Ticket Information: " + ticketsArray[i].toString());
                 // Printing out the ticket information.
-            } else System.out.println("This seat is available!");
+            } else {
+                System.out.println("This seat is available!");
+                break;
+            }
         }
     }
     public static void quit(){
