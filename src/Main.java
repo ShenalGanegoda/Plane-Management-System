@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -73,12 +76,13 @@ public class Main {
                 searchTickets();
             }
             case 0 -> quit();
+
             default -> System.out.println("Invalid Input\nTry again..");
         }
     }
     public static void buyASeat(){
-        int seatNumberChosen = getSeatNumberFromUser();
         String rowChosen = getRowNumberFromUser();
+        int seatNumberChosen = getSeatNumberFromUser();
         int ticketPrice = calculateTicketPrice(seatNumberChosen);
 
         collectPersonInformation(rowChosen , seatNumberChosen , ticketPrice);
@@ -128,6 +132,7 @@ public class Main {
         buyCount++; // Incrementing the buy Count to keep track of sold tickets.
         ticketsArray = addToArray(ticketsArray , buyCount , ticket);
         // Method to Add new Ticket to an Array and assigning the new array to the original array.
+        saveInfoMethod(); // Method call to save information into a file.
     }
 
     private static Ticket[] addToArray(Ticket[] arrayOfTickets , int elementsOfTheArray , Ticket newValue) {
@@ -322,8 +327,8 @@ public class Main {
     }
     public static void cancelASeat(){
         // Separate method to cancel a seat booking.
-        int seatNumberChosen = getSeatNumberFromUser();
         String rowChosen = getRowNumberFromUser();
+        int seatNumberChosen = getSeatNumberFromUser();
 
         int indicateCancel = 1; // Variable to pass to the method to indicate it's a cancellation.
         switch (rowChosen){
@@ -432,4 +437,19 @@ public class Main {
         System.exit(0); // System classes exit method used for terminating the JVM.
     }
 
+    public static void saveInfoMethod(){
+        // Separate method to save Information in a separate file.
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
+            // Creating a new BufferedWriter Object.
+            for (int i = 0; i < ticketsArray.length; i++) {
+                writer.write("\n\n" + ticketsArray[i].toString());
+                // Writing the Information from the object with the toString() method to a text file.
+            }
+            writer.close(); // Closing the writer.
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
 }
