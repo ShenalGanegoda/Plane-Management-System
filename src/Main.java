@@ -1,8 +1,10 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     public static Scanner scn = new Scanner(System.in); // Scanner object to get inputs from the user.
-
     // Integer arrays that holds the seat status, Available - "0" | Sold - "1"
     public static int[] seatingA = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 };
     public static int[] seatingB = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0};
@@ -10,6 +12,8 @@ public class Main {
     public static int[] seatingD = { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 };
     public static int[][] allSeats = {seatingA , seatingB , seatingC , seatingD};
     // Multidimensional Array for storing all arrays for traversing.
+    public static Ticket[] ticketsArray = {}; // Array to hold Ticket objects.
+    public static int buyCount = -1; // Integer variable to hold ticket count.
 
 
     public static void main(String[] args) {
@@ -72,12 +76,17 @@ public class Main {
                 searchTickets();
             }
             case 0 -> quit();
+
             default -> System.out.println("Invalid Input\nTry again..");
         }
     }
     public static void buyASeat(){
-        int seatNumberChosen = getSeatNumberFromUser();
         String rowChosen = getRowNumberFromUser();
+        int seatNumberChosen = getSeatNumberFromUser();
+        int ticketPrice = calculateTicketPrice(seatNumberChosen);
+
+        collectPersonInformation(rowChosen , seatNumberChosen , ticketPrice);
+        // Collecting person information and creating Person + Ticket objects.
 
         int indicateBooking = 0; // Variable to pass to the method to indicate it's a Booking.
         System.out.println();
@@ -88,6 +97,53 @@ public class Main {
             case "C" -> bookOrCancelRowC(seatNumberChosen , indicateBooking);
             case "D" -> bookOrCancelRowD(seatNumberChosen , indicateBooking);
         }
+
+    }
+
+    private static int calculateTicketPrice(int seatNumber) {
+        int calculatedPrice = 0;
+
+        if ((seatNumber >= 1) || (seatNumber <= 5)){
+            // Checks for the seats in between seat number 1 - 5.
+            calculatedPrice = 200;
+        } else if (seatNumber >= 6 || seatNumber <= 9 ) {
+            // Checks for the seats in between seat number 6 - 9.
+            calculatedPrice = 150;
+        } else calculatedPrice = 180; // Seats in between seat number 10 - 14.
+
+        return calculatedPrice;
+    }
+
+    public static void collectPersonInformation(String row , int seat , int ticketPrice) {
+        //  Separate method to get information of the person.
+        System.out.print("Enter name: ");
+        String name = scn.next();
+        System.out.print("Enter surname: ");
+        String surname = scn.next();
+        System.out.print("Enter Email: ");
+        String email = scn.next();
+
+        Person person = new Person(name , surname , email);
+        // Creating a Person object with the received inputs.
+
+        Ticket ticket = new Ticket(row , seat , ticketPrice , person);
+        // Creating a Ticket object with the received inputs.
+
+        buyCount++; // Incrementing the buy Count to keep track of sold tickets.
+        ticketsArray = addToArray(ticketsArray , buyCount , ticket);
+        // Method to Add new Ticket to an Array and assigning the new array to the original array.
+        saveInfoMethod(); // Method call to save information into a file.
+    }
+
+    private static Ticket[] addToArray(Ticket[] arrayOfTickets , int elementsOfTheArray , Ticket newValue) {
+        Ticket[] newTicketArray = new Ticket[elementsOfTheArray + 1];
+        // Creating new array with one index added to the original Array for new value addition.
+
+        for (int i = 0; i < elementsOfTheArray; i++) {
+            newTicketArray[i] = arrayOfTickets[i]; // Creating new array with Original array.
+        }
+        newTicketArray[elementsOfTheArray] = newValue; // Adding the new value to the last index.
+        return newTicketArray;
     }
 
     public static int getSeatNumberFromUser(){
@@ -113,6 +169,8 @@ public class Main {
         return seatNumberChosen;
     }
 
+
+
     public static String getRowNumberFromUser(){
         // Separate method to get Row from the user.
         String rowChosen = "";
@@ -137,7 +195,7 @@ public class Main {
     }
 
     public static void bookOrCancelRowA(int seatNumber , int bookOrCancel){
-        // Separate method to trave
+        // Separate method to traverse
         // rse through specific row for booking.
 
         // 0 - Book
@@ -182,6 +240,26 @@ public class Main {
                 System.out.println("Seat is available!\nWrong Input");
             }
         }
+    }
+
+    public static Ticket[] removeFromArray
+            (Ticket[] arrayOfTickets , int seat , String row) {
+        // Separate method to remove elements from an array.
+
+        Ticket[] newArray = new Ticket[arrayOfTickets.length - 1];
+        // Creating a new array to assign elements excluding the remove needed element.
+
+        int j = 0; // Integer variable to hold the index of the new array.
+
+        for (int i = 0; i < arrayOfTickets.length; i++) { // Traversing through the original array.
+            if (arrayOfTickets[i].getSeat() != seat && arrayOfTickets[i].getRow() != row){
+                // If the row and seat numbers are not equal assign the values to the new array.
+                newArray[j] = arrayOfTickets[i]; // If not assign the values to the new array created.
+                j++; // Incrementing the value for the new array index.
+            }
+        }
+
+        return newArray;
     }
 
     public static void bookOrCancelRowC(int seatNumber , int bookOrCancel){
@@ -230,10 +308,10 @@ public class Main {
         }
     }
 
-    public static boolean validSeatNumber(int rowNumber){
+    public static boolean validSeatNumber(int seatNumber){
         // Method for seat number input validation.
         boolean flag = true; // Boolean value to check and store validation for return.
-        if ((rowNumber <= 0) || (rowNumber > 14)) flag = false;
+        if ((seatNumber <= 0) || (seatNumber > 14)) flag = false;
         // Condition to check if Row number is within the valid range.
 
         return flag;
@@ -249,11 +327,10 @@ public class Main {
     }
     public static void cancelASeat(){
         // Separate method to cancel a seat booking.
-        int seatNumberChosen = getSeatNumberFromUser();
         String rowChosen = getRowNumberFromUser();
+        int seatNumberChosen = getSeatNumberFromUser();
 
-
-        int indicateCancel = 1; // Variable to pass to the method to indicate it's a cancelation.
+        int indicateCancel = 1; // Variable to pass to the method to indicate it's a cancellation.
         switch (rowChosen){
             // Switch case to book using separate methods.
             case "A" -> bookOrCancelRowA(seatNumberChosen , indicateCancel);
@@ -261,6 +338,11 @@ public class Main {
             case "C" -> bookOrCancelRowC(seatNumberChosen , indicateCancel);
             case "D" -> bookOrCancelRowD(seatNumberChosen , indicateCancel);
         }
+
+
+        ticketsArray = removeFromArray(ticketsArray , seatNumberChosen , rowChosen);
+        // Removing the element from the array and assigning it to the Original array.
+        buyCount--; // Incrementing the value of the buyCount variable.
     }
     public static void findFirstAvailableSeat(){
         int count = 0; // Count variable to track which array inside the for-each loop.
@@ -291,7 +373,6 @@ public class Main {
         return row;
     }
     public static void showSeatingPlan(){
-
         for(int[] individualArrays : allSeats){
             System.out.println();
             for (int i = 0; i < individualArrays.length; i++) { // Iterating through each individual Array.
@@ -302,12 +383,82 @@ public class Main {
         }
 
     }
-    public static void printTicketInformation(){}
-    public static void searchTickets(){}
+    public static void printTicketInformation(){
+        int seatSet200 = 0;
+        int seatSet150 = 0;
+        int seatSet180 = 0;
+
+        if (ticketsArray.length == 0){
+            System.out.println("All seats available!");
+        } else {
+            for (int i = 0; i < ticketsArray.length; i++) { // Traverse through the array of Ticket objects.
+                switch (ticketLocationCheck(ticketsArray[i])){ // Switch case to decide which seat count to increment.
+                    case 1 -> seatSet200++;
+                    case 2 -> seatSet150++;
+                    case 3 -> seatSet180++;
+                }
+                System.out.println(ticketsArray[i].toString()); // Printing out the information using the toString() method.
+            }
+        }
+
+        System.out.println("Total price: " + calculateTotalPrice(seatSet200 ,seatSet150 ,seatSet180));
+    }
+
+    public static int calculateTotalPrice(int seatSet200 , int seatSet150 , int seatSet180) {
+        int totalPrice = 0; // Variable to hold the total price.
+        totalPrice = (seatSet200 * 200) + (seatSet150 * 150) + (seatSet180 * 180);
+        return totalPrice;
+    }
+
+    private static int ticketLocationCheck(Ticket ticket) {
+        // Separate method to check the position of the seat
+        if (ticket.getSeat() >= 1 && ticket.getSeat() <= 5){
+            return 1;
+        } else if (ticket.getSeat() >= 6 && ticket.getSeat() <= 9) {
+            return 2;
+        } else return 3;
+    }
+
+
+    public static void searchTickets(){
+        if (ticketsArray.length == 0){
+            System.out.println("Null bookings recorded\n");
+        } else {
+            int selectedSeat = getSeatNumberFromUser(); // Receiving the seat number from the user.
+            String selectedRow = getRowNumberFromUser(); // Receiving the row from the user.
+
+            for (int i = 0; i < ticketsArray.length; i++) { // Traversing through the Tickets array for check.
+                if (selectedSeat == ticketsArray[i].getSeat() && selectedRow.equals(ticketsArray[i].getRow())){
+                    // Checks if the ticket is already bought.
+                    System.out.println("Ticket Information: " + ticketsArray[i].toString());
+                    // Printing out the ticket information.
+                } else {
+                    System.out.println("This seat is available!");
+                    break;
+                }
+            }
+        }
+    }
+
     public static void quit(){
         // Method to terminate the JVM.
         System.out.println("06) Quitting program.. ");
         System.exit(0); // System classes exit method used for terminating the JVM.
     }
 
+    public static void saveInfoMethod(){
+        // Separate method to save Information in a separate file.
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
+            // Creating a new BufferedWriter Object.
+            for (int i = 0; i < ticketsArray.length; i++) {
+                writer.write("\n\n" + ticketsArray[i].toString());
+                // Writing the Information from the object with the toString() method to a text file.
+            }
+            writer.close(); // Closing the writer.
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
 }
