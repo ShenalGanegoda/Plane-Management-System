@@ -1,5 +1,0 @@
-
-
-Ticket Information: ,Row - A, Seat - 12, Price - 200 ,Person Information: , Name - Shenal, Surname - Ganegoda, Email - ganegoda@gmail.com
-
-Ticket Information: ,Row - B, Seat - 3, Price - 200 ,Person Information: , Name - Thushara, Surname - Ganegoda, Email - tsk@yahoo.com
